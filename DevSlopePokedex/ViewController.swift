@@ -15,12 +15,16 @@ import AVFoundation
 
 //UICollectionViewDelegateFlowLayout: The protocol use to MODIFIED and set the SETTING for the layout for the collection view
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchBarDelegate {
 
     @IBOutlet weak var collection: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     
     var pokemon = [Pokemon]()
+    var filteredPokemon = [Pokemon]()
     var musicPlayer: AVAudioPlayer!
+    var inSearchMode = false
     
     override func viewDidLoad()
     {
@@ -28,6 +32,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         
         collection.dataSource = self
         collection.delegate = self
+        searchBar.delegate = self
+        
+        searchBar.returnKeyType = UIReturnKeyType.done
         
         parsePokemonCSV()
         initAudio()
@@ -81,8 +88,21 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokeCell", for: indexPath) as? PokeCell
         {
-            let poke = pokemon[indexPath.row]
-            cell.configureCell(poke)
+            let poke: Pokemon!
+            
+            if inSearchMode
+            {
+                poke = filteredPokemon[indexPath.row]
+                cell.configureCell(poke)
+            }
+            else
+            {
+                //If we are not in search mode, then poke is equal to pokemon from the original array
+                poke = pokemon[indexPath.row]
+                
+                //Then were going to set that in
+                cell.configureCell(poke)
+            }
             
             return cell
         }
@@ -99,6 +119,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
+        if inSearchMode
+        {
+            return filteredPokemon.count
+        }
+        
         return pokemon.count
     }
     
@@ -126,8 +151,35 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         }
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+    {
+        view.endEditing(true)
+    }
     
-
-
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        if searchBar.text == nil || searchBar.text == ""
+        {
+            inSearchMode = false
+            collection.reloadData()
+            view.endEditing(true)
+        }
+        else
+        {
+            inSearchMode = true
+            
+            let lower = searchBar.text!.lowercased()
+            
+            //Basically saying: The "filteredPokemon (filteredPokemon)" list  is going to be "equal (=)" to the "orignal pokemon list (pokemon)" but it`s "filter (.filter)" and how we are filtering it is:
+                                    //The "Dollar Sign & Zero($0)" is kind of a place holder for any and all of the object in the original pokemon array
+                                    //Where taking the name value of that "(.name)" 
+                                    //Then is what we put in the search bar contain any inside of that name "(.rang(of: lower)) != nill)
+                                    //*(lower) = "let lower = searchBar.text!.lowercased()"
+                                    //And if it is, then we are going to put that into the pokemon filtered list
+            filteredPokemon = pokemon.filter({$0.name.range(of: lower) != nil})
+            
+            collection.reloadData()
+        }
+    }
 }
 
