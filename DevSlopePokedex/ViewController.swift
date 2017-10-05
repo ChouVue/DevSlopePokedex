@@ -114,7 +114,18 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
+        var poke: Pokemon!
         
+        if inSearchMode
+        {
+            poke = filteredPokemon[indexPath.row]
+        }
+        else
+        {
+            poke = pokemon[indexPath.row]
+        }
+        
+        performSegue(withIdentifier: "ViewControllerToPokemonDetailVC", sender: poke)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -179,6 +190,27 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             filteredPokemon = pokemon.filter({$0.name.range(of: lower) != nil})
             
             collection.reloadData()
+        }
+    }
+    
+    //Here we are preparing the "Segue" and will be sending "AnyObject"
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        //Saying: If the segue identifier is "ViewControllerToPokemonDetailVC"
+        if segue.identifier == "ViewControllerToPokemonDetailVC"
+        {
+            //Then we are going to create a variable for "detailVC" and the destination view controller is "PokemonDetailVC"
+            if let detailsVC = segue.destination as? PokemonDetailVC
+            {
+                //And then were going to create "poke" as a sender as a class "Pokemon"
+                if let poke = sender as? Pokemon
+                {
+                    //"detailVC" is what we defined as the destination view controller
+                    //"pokemon" is the variable we created in "PokemonDetailVC"
+                    //Saying: The destination view controller (detailsVC) that contain the variable "pokemon", we are setting it to this View Controller variable "poke"
+                    detailsVC.pokemon = poke
+                }
+            }
         }
     }
 }
