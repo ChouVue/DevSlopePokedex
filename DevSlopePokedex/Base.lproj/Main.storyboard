@@ -161,16 +161,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8D-qX-4KW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Ivysaur" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5t-iH-OTF">
-                                        <rect key="frame" x="65" y="8" width="190" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="190" id="DJU-Ze-U6f"/>
-                                            <constraint firstAttribute="height" constant="32" id="zgj-3g-Xgo"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uXm-kb-DV1">
                                         <rect key="frame" x="11" y="8" width="53" height="34"/>
                                         <constraints>
@@ -181,14 +171,25 @@
                                             <action selector="backBtnPressed:" destination="RxV-FM-VBl" eventType="touchUpInside" id="0fV-b3-36G"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ivysaur" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5t-iH-OTF">
+                                        <rect key="frame" x="72" y="8" width="175" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="LLy-u6-wWR"/>
+                                            <constraint firstAttribute="width" constant="175" id="Tgm-DD-hYJ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.1383174485" blue="0.048426831179999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstItem="r5t-iH-OTF" firstAttribute="centerY" secondItem="x8D-qX-4KW" secondAttribute="centerY" id="5tl-Nv-cwD"/>
                                     <constraint firstItem="uXm-kb-DV1" firstAttribute="leading" secondItem="x8D-qX-4KW" secondAttribute="leading" constant="11" id="7A2-nX-hiF"/>
+                                    <constraint firstItem="r5t-iH-OTF" firstAttribute="centerX" secondItem="x8D-qX-4KW" secondAttribute="centerX" id="8ch-IK-0VO"/>
                                     <constraint firstAttribute="height" constant="50" id="IIW-pq-KD0"/>
                                     <constraint firstItem="uXm-kb-DV1" firstAttribute="top" secondItem="x8D-qX-4KW" secondAttribute="top" constant="8" id="NYR-5x-AUs"/>
                                     <constraint firstAttribute="bottom" secondItem="uXm-kb-DV1" secondAttribute="bottom" constant="8" id="jI3-a8-ase"/>
-                                    <constraint firstItem="r5t-iH-OTF" firstAttribute="centerX" secondItem="x8D-qX-4KW" secondAttribute="centerX" id="nKy-3O-Nvl"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bkw-In-ycM">
